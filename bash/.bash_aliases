@@ -58,7 +58,8 @@ function sys_info () {
 # Print history of search word
 function hg() {
   if hash fzf 2> /dev/null; then
-    ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --header="History Search" --header-first --cycle | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
+    # ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --header="History Search" --header-first --cycle | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
+    history | grep "$1" | fzf +s --tac --header="History Search" --header-first --cycle | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
   else
     history | grep "$1";
   fi
