@@ -1,3 +1,3 @@
 #
 
-### Explanation of Custom bashrc and bash_aliases
+### Explanation of custom bashrc and bash_aliases
