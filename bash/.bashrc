@@ -1,12 +1,11 @@
 #! /bin/bash
 # .bashrc
 
+# If not running interactively, don't do anything
 case $- in
-*i*) ;; # interactive
-*) return ;; 
+    *i*) ;;
+      *) return ;; 
 esac
-
-eval "$(dircolors -b)"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -22,14 +21,6 @@ export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
-
-#####USER ADDED#####
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -47,13 +38,43 @@ HISTFILESIZE=2000;
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize;
 shopt -s cdspell;
+# Use . and .. instead of cd
+# shopt -s autocd
 
 # Run vim commands on the cli (not sure how it works)
 # set -o vi
 
-# Use . and .. instead of cd
-# courtesy of Distrotube
-# shopt -s autocd
+# enable color support of ls, less and man, and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias ll='ls -lAh --color=auto'
+    alias la='ls -lhA --color=auto'
+    alias l='ls -CF --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias diff='diff --color=auto'
+    alias ip='ip --color=auto'
+
+    export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
+    export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
+    export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+    export LESS_TERMCAP_so=$'\E[01;33m'    # begin reverse video
+    export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+    export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+    export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+fi
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 ############~Custom Bash Prompt Info~############
 # Add some colors
