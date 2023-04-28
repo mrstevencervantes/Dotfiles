@@ -58,7 +58,7 @@ function sys_info () {
 # Print history of search word
 function hg() {
   if hash fzf 2> /dev/null; then
-    ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --header="History Search" | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
+    ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --header="History Search" --header-first --cycle | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
   else
     history | grep "$1";
   fi
@@ -110,7 +110,7 @@ dent() {
 pstop() {
   if hash podman 2> /dev/null; then
     # podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman stop
-    podman ps -af status=running --format '{{.Names}}' | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman stop
+    podman ps -af status=running --format '{{.Names}}' | fzf -q "$1" --no-sort -m --tac --header="Podman Stop" --header-first --cycle | awk '{ print $1 }' | xargs -r podman stop
   else
     if [[ $# -eq 0 ]]; then
       podman stop -a;
@@ -127,7 +127,7 @@ pstop() {
 prm() {
   if hash podman 2> /dev/null; then
     # podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman rm
-    podman ps -a --format="{{.Names}}" | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman rm
+    podman ps -a --format="{{.Names}}" | fzf -q "$1" --no-sort -m --tac --header="Podman RM" --header-first --cycle | awk '{ print $1 }' | xargs -r podman rm
   else
     if [[ $# -eq 0 ]]; then
       podman rm -a;
@@ -144,7 +144,7 @@ prm() {
 # Remove container/toolbox/distrobox images
 prmi() {
   if hash podman 2> /dev/null; then
-    podman images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r podman rmi
+    podman images -a | sed 1d | fzf -q "$1" --no-sort -m --tac --header="Podman RMI" --header-first --cycle | awk '{ print $3 }' | xargs -r podman rmi
   else
     if [[ $# -eq 0 ]]; then
       podman rmi -a;
