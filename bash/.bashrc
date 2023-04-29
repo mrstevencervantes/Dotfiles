@@ -78,25 +78,25 @@ fi
 
 ############~Custom Bash Prompt Info~############
 # Add some colors
-BLK='\[\e[0;30m\]';   # Black
+# BLK='\[\e[0;30m\]';   # Black
 RED='\[\e[0;31m\]';   # Red
 LRED='\[\e[0;91m\]';  # Light Red
 GRN='\[\e[0;32m\]';   # Green
 LGRN='\[\e[0;92m\]';  # Light Green
 YlW='\[\e[0;33m\]';   # Yellow
 BLU='\[\e[0;34m\]';   # Blue
-LBLU='\[\e[0;94m\]';  # Light Blue
+# LBLU='\[\e[0;94m\]';  # Light Blue
 PUR='\[\e[0;35m\]';   # Purple
 CYN='\[\e[0;36m\]';   # Cyan
 WHT='\[\e[0;37m\]';   # White
 # Bold colors
-BBLK='\[\e[1;30m\]'; # Black
-BRED='\[\e[1;31m\]'; # Red
-BGRN='\[\e[1;32m\]'; # Green
+# BBLK='\[\e[1;30m\]'; # Black
+# BRED='\[\e[1;31m\]'; # Red
+# BGRN='\[\e[1;32m\]'; # Green
 BYLW='\[\e[1;33m\]'; # Yellow
 BBLU='\[\e[1;34m\]'; # Blue
 BPUR='\[\e[1;35m\]'; # Purple
-BCYN='\[\e[1;36m\]'; # Cyan
+# BCYN='\[\e[1;36m\]'; # Cyan
 BWHT='\[\e[1;37m\]'; # White
 #clr='\e[0;00m';     # Reset bad
 clr='\[\033[0m\]';   # Reset good
@@ -124,34 +124,34 @@ clr='\[\033[0m\]';   # Reset good
 ##########     TPUTS     ##########
 ###################################
 # background color using ANSI escape
-bgBlack=$(tput setab 0);   # black
-bgRed=$(tput setab 1);     # red
-bgGreen=$(tput setab 2);   # green
-bgYellow=$(tput setab 3);  # yellow
-bgBlue=$(tput setab 4);    # blue
-bgMagenta=$(tput setab 5); # magenta
-bgCyan=$(tput setab 6);    # cyan
-bgWhite=$(tput setab 7);   # white
+# bgBlack=$(tput setab 0);   # black
+# bgRed=$(tput setab 1);     # red
+# bgGreen=$(tput setab 2);   # green
+# bgYellow=$(tput setab 3);  # yellow
+# bgBlue=$(tput setab 4);    # blue
+# bgMagenta=$(tput setab 5); # magenta
+# bgCyan=$(tput setab 6);    # cyan
+# bgWhite=$(tput setab 7);   # white
 
 # foreground color using ANSI escape
-fgBlack=$(tput setaf 0);   # black
-fgRed=$(tput setaf 1);     # red
-fgGreen=$(tput setaf 2);   # green
-fgYellow=$(tput setaf 3);  # yellow
-fgBlue=$(tput setaf 4);    # blue
-fgMagenta=$(tput setaf 5); # magenta
-fgCyan=$(tput setaf 6);    # cyan
-fgWhite=$(tput setaf 7);   # white
+# fgBlack=$(tput setaf 0);   # black
+# fgRed=$(tput setaf 1);     # red
+# fgGreen=$(tput setaf 2);   # green
+# fgYellow=$(tput setaf 3);  # yellow
+# fgBlue=$(tput setaf 4);    # blue
+# fgMagenta=$(tput setaf 5); # magenta
+# fgCyan=$(tput setaf 6);    # cyan
+# fgWhite=$(tput setaf 7);   # white
 
 # text editing options
-txBold=$(tput bold);       # bold
-txHalf=$(tput dim);        # half-bright
-txUnderline=$(tput smul);  # underline
-txEndUnder=$(tput rmul);   # exit underline
-txReverse=$(tput rev);     # reverse
-txStandout=$(tput smso);   # standout
-txEndStand=$(tput rmso);   # exit standout
-txReset=$(tput sgr0);      # reset attributes
+# txBold=$(tput bold);       # bold
+# txHalf=$(tput dim);        # half-bright
+# txUnderline=$(tput smul);  # underline
+# txEndUnder=$(tput rmul);   # exit underline
+# txReverse=$(tput rev);     # reverse
+# txStandout=$(tput smso);   # standout
+# txEndStand=$(tput rmso);   # exit standout
+# txReset=$(tput sgr0);      # reset attributes
 ###################################
 ###################################
 
