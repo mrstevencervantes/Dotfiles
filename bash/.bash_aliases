@@ -109,7 +109,7 @@ dent() {
 
 # Stop containers/toolbox/distrobox
 pstop() {
-  if hash podman 2> /dev/null; then
+  if hash fzf 2> /dev/null; then
     # podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman stop
     podman ps -af status=running --format '{{.Names}}' | fzf -q "$1" --no-sort -m --tac --header="Podman Stop" --header-first --cycle | awk '{ print $1 }' | xargs -r podman stop
   else
@@ -126,7 +126,7 @@ pstop() {
 
 # Remove containers/toolbox/distrobox
 prm() {
-  if hash podman 2> /dev/null; then
+  if hash fzf 2> /dev/null; then
     # podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman rm
     podman ps -a --format="{{.Names}}" | fzf -q "$1" --no-sort -m --tac --header="Podman RM" --header-first --cycle | awk '{ print $1 }' | xargs -r podman rm
   else
@@ -144,7 +144,7 @@ prm() {
 
 # Remove container/toolbox/distrobox images
 prmi() {
-  if hash podman 2> /dev/null; then
+  if hash fzf 2> /dev/null; then
     podman images -a | sed 1d | fzf -q "$1" --no-sort -m --tac --header="Podman RMI" --header-first --cycle | awk '{ print $3 }' | xargs -r podman rmi
   else
     if [[ $# -eq 0 ]]; then
@@ -164,7 +164,6 @@ alias pvol='podman volume ls'
 alias pnet='podman network ls'
 
 # Fedora Toolbox aliases
-alias macd="toolbox run -c tools macchanger -s enp88s0"
 alias tbup="toolbox run -c tools sudo dnf upgrade"
 alias tldr="toolbox run -c tools tldr"
 alias neofetch="toolbox run -c tools neofetch"
