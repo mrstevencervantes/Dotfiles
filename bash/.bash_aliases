@@ -46,8 +46,8 @@ alias mv='mv -iv'
 rm() {
     if hash fzf 2> /dev/null;then
        ls -1 | \
-        fzf -q "$1" -m --preview '([[ -f {} ]] && (cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200' \
-        | sed -e "s/\(.*\)/'\1'/" | xargs -r command rm
+           fzf -q "$1" -m --preview '([[ -f {} ]] && (cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200' \
+           | sed -e "s/\(.*\)/'\1'/" | xargs -r command rm
     else
         alias rm='rm -iv'
     fi
