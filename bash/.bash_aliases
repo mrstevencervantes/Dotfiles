@@ -5,7 +5,7 @@
 # check for exa and bat
 if hash podman 2> /dev/null; then
     # Custom Docker/Podman format command
-    alias dpps='podman ps -a --format="$(tput bold)${fgRed}---> ${txReset}ID: {{.ID}}\n   NAME: {{.Names}}\n  IMAGE: {{.Image}}\n  PORTS: {{.Ports}}\nCOMMAND: {{.Command}}\nCREATED: {{.CreatedAt}}\n STATUS: {{.Status}}\n\n"';
+    alias dpps='podman ps -a --format="$(tput bold)$(tput setaf 1)---> $(tput sgr0)ID: {{.ID}}\n   NAME: {{.Names}}\n  IMAGE: {{.Image}}\n  PORTS: {{.Ports}}\nCOMMAND: {{.Command}}\nCREATED: {{.CreatedAt}}\n STATUS: {{.Status}}\n\n"';
 else
     export BAT_THEME="Solarized (light)"
     alias ls='exa'
@@ -16,10 +16,21 @@ else
 fi
 
 if hash fzf 2> /dev/null; then
+    # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#color-themes
     # junegunn/seoul256.vim (dark)
-    export FZF_DEFAULT_OPTS='--color=bg+:#3F3F3F,bg:#4B4B4B,border:#6B6B6B,spinner:#98BC99,hl:#719872,fg:#D9D9D9,header:#719872,info:#BDBB72,pointer:#E12672,marker:#E17899,fg+:#D9D9D9,preview-bg:#3F3F3F,prompt:#98BEDE,hl+:#98BC99'
+    export FZF_DEFAULT_OPTS="--color=bg+:#3F3F3F,bg:#4B4B4B,border:#6B6B6B,spinner:#98BC99,hl:#719872,fg:#D9D9D9,header:#719872,info:#BDBB72,pointer:#E12672,marker:#E17899,fg+:#D9D9D9,preview-bg:#3F3F3F,prompt:#98BEDE,hl+:#98BC99
+        --header-first 
+        --cycle 
+        --layout=reverse 
+        --info=inline 
+        --border 
+        --margin=1 
+        --padding=1
+        --tac
+        --no-sort"
 fi
 
+# Standard aliases
 alias dd='dd status=progress'
 alias _='sudo'
 alias _i='sudo -i'
@@ -29,9 +40,19 @@ alias fucking='sudo'
 # confirmation aliases
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -iv'
 
 ### Custom Functions ###
+# Better remove
+rm() {
+    if hash fzf 2> /dev/null;then
+       ls -1 | \
+        fzf -q "$1" -m --preview '([[ -f {} ]] && (cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200' \
+        | sed -e "s/\(.*\)/'\1'/" | xargs -r command rm
+    else
+        alias rm='rm -iv'
+    fi
+}
+
 # Print some system info
 function sys_info () {
   clear;
@@ -58,8 +79,11 @@ function sys_info () {
 # Print history of search word
 function hg() {
   if hash fzf 2> /dev/null; then
-    # ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --header="History Search" --header-first --cycle | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
-    history | grep "$1" | fzf +s --tac --header="History Search" --header-first --cycle | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
+    local cid
+    # ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --header="History Search" | sed -re 's/^\s*[0-9]+\s*//' | python3 -c "print(f'{input()}')"
+    cid=$(history | grep "$1" | fzf --header="History Search" | sed -re 's/^\s*[0-9]+\s*//')
+    echo "$cid"
+    [ -n "$cid" ] && bash -c "$cid"
   else
     history | grep "$1";
   fi
@@ -99,19 +123,33 @@ alias update-fixer='sudo grub2-mkconfig';
 # toolbox, distrobox and podman functions
 tent() {
     clear;
-    toolbox enter "$1";
+    if hash fzf 2> /dev/null; then
+        local cid
+        cid=$(toolbox list -c | sed 1d | fzf -q "$1" --header="Toolbox Enter" | awk '{ print $2 }')
+        [ -n "$cid" ] && toolbox enter "$cid"
+    else
+        toolbox enter "$1";
+    fi
 }
 
 dent() {
     clear;
-    distrobox enter "$1";
+    if hash fzf 2> /dev/null; then
+        local cid
+        cid=$(distrobox list | sed 1d | fzf -q "$1" --header="Distrobox Enter" | awk '{ print $2 }')
+        [ -n "$cid" ] && distrobox enter "$cid"
+    else
+        distrobox enter "$1";
+    fi
 }
 
 # Stop containers/toolbox/distrobox
 pstop() {
   if hash fzf 2> /dev/null; then
-    # podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman stop
-    podman ps -af status=running --format '{{.Names}}' | fzf -q "$1" --no-sort -m --tac --header="Podman Stop" --header-first --cycle | awk '{ print $1 }' | xargs -r podman stop
+    # podman ps -a | sed 1d | fzf -q "$1" -m | awk '{ print $1 }' | xargs -r podman stop
+    podman ps -af status=running --format '{{.Names}}' \
+        | fzf -q "$1" -m --header="Podman Stop" \
+        | awk '{ print $1 }' | xargs -r podman stop
   else
     if [[ $# -eq 0 ]]; then
       podman stop -a;
@@ -127,8 +165,10 @@ pstop() {
 # Remove containers/toolbox/distrobox
 prm() {
   if hash fzf 2> /dev/null; then
-    # podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman rm
-    podman ps -a --format="{{.Names}}" | fzf -q "$1" --no-sort -m --tac --header="Podman RM" --header-first --cycle | awk '{ print $1 }' | xargs -r podman rm
+    # podman ps -a | sed 1d | fzf -q "$1" -m | awk '{ print $1 }' | xargs -r podman rm
+    podman ps -a --format="{{.Names}}" \
+        | fzf -q "$1" -m --header="Podman RM" \
+        | awk '{ print $1 }' | xargs -r podman rm
   else
     if [[ $# -eq 0 ]]; then
       podman rm -a;
@@ -145,7 +185,9 @@ prm() {
 # Remove container/toolbox/distrobox images
 prmi() {
   if hash fzf 2> /dev/null; then
-    podman images -a | sed 1d | fzf -q "$1" --no-sort -m --tac --header="Podman RMI" --header-first --cycle | awk '{ print $3 }' | xargs -r podman rmi
+    podman images -a | sed 1d \
+        | fzf -q "$1" -m --header="Podman RMI" \
+        | awk '{ print $3 }' | xargs -r podman rmi
   else
     if [[ $# -eq 0 ]]; then
       podman rmi -a;
@@ -164,6 +206,7 @@ alias pvol='podman volume ls'
 alias pnet='podman network ls'
 
 # Fedora Toolbox aliases
+alias macd="toolbox run -c tools macchanger -s enp88s0"
 alias tbup="toolbox run -c tools sudo dnf upgrade"
 alias tldr="toolbox run -c tools tldr"
 alias neofetch="toolbox run -c tools neofetch"
