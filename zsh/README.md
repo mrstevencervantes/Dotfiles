@@ -4,3 +4,4 @@
 
 ![bash_prompt](https://github.com/mrstevencervantes/Dotfiles/blob/main/zsh/zsh_cli.png)
 
+Test
