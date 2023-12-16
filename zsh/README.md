@@ -1,7 +1,6 @@
+
 # ZSH
 
 ### Explanation of custom bashrc and bash_aliases
 
-![bash_prompt](https://github.com/mrstevencervantes/Dotfiles/blob/main/zsh/zsh_cli.png)
-
-Test
+![zsh_cli](https://github.com/mrstevencervantes/Dotfiles/assets/64292955/55676b08-1220-47f5-ab79-f5909e9cf7fc)
