@@ -1,0 +1,172 @@
+# ~/.config/starship.toml
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Custom format
+format = """[╭─](bold green)$jobs$username$hostname
+[╰─](bold green) ${custom.container_name}$character"""
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[directory]
+disabled = true
+
+# right_format = "$cmd_duration"
+
+# [cmd_duration]
+# min_time = 0
+# show_milliseconds = false
+# format='[$duration]($style)'
+# style="bold yellow"
+
+[username]
+format = "[$user]($style)@"
+style_user = "cyan"
+style_root = "bold red"
+show_always = true
+
+[hostname]
+# format = "[$hostname]($style)"
+format = "[fedora]($style)"
+style = "bright-red"
+# trim_at = "-"
+ssh_only = false
+disabled = false
+
+# Prompt: param 2 └─
+[character]
+success_symbol = " [➜ ](bold green)"
+error_symbol = " [✗ ](bold red)"
+
+[jobs]
+symbol = ":"
+number_threshold = 1
+style = "bright-white"
+# symbol_threshold = 1
+# format = "[$symbol](bold white)[$number]($style)"
+format = '[\[](bright-green)[$number]($style)[\]](bright-green)'
+
+# [custom.history]
+# description = "show load averages"
+# command = "cat /proc/loadavg | cut -d' ' -f 1,2,3"
+# shell = "/bin/sh"
+# symbol = " "
+# style = "red"
+# when = """
+# limit="1.0"
+# load=$(cat /proc/loadavg | cut -d' ' -f 1)
+# test "$(echo "$load>$limit" | bc)" -ne 0
+# """
+
+[custom.container_name]
+description = "Identify if in toolbox, distrobox or if containers available"
+when = "true"
+symbol = " " # a nerd font is required, alternatively 🧰
+shell = ["bash", "--noprofile", "--norc"]
+style = "bright-yellow"
+format = "[($output)]($style)"
+command = """
+if [ -f "/run/.containerenv" ]; then
+    container_name="$(hostname -s)";
+elif [ -f "/run/.toolboxenv" ]; then
+    container_name="$(cat /run/.containerenv | grep -oP '(?<=name=\")[^\";]+')";
+elif [ -n "$SSH_CLIENT" ]; then
+    container_name="'SSH SESSION'";
+elif [ -n "$(podman ps -a --format '{}')" ]; then
+    stopped="$(podman ps -af status=exited --format '{{.Names}}' | tr '\n' ' ')";
+    created="$(podman ps -af status=created --format '{{.Names}}' | tr '\n' ' ')";
+    running="$(podman ps -af status=running --format '{{.Names}}' | tr '\n' ' ')";
+    container_name=" $running$created$stopped";
+else
+    container_name=" ";
+
+fi
+
+echo $container_name
+"""
+
+[aws]
+symbol = "aws "
+
+[conda]
+symbol = "conda "
+
+[crystal]
+symbol = "crystal "
+
+[cmake]
+symbol = "cmake "
+
+[dart]
+symbol = "dart "
+
+[deno]
+symbol = "deno "
+
+[dotnet]
+symbol = ".NET "
+
+[docker_context]
+format = "via [🐋 $context](blue bold)"
+
+[elixir]
+symbol = "elixir "
+
+[elm]
+symbol = "elm "
+
+[golang]
+format = "go: [🏎💨 $version](bold cyan) "
+
+[hg_branch]
+symbol = "hg "
+
+[java]
+symbol = "java "
+
+[julia]
+symbol = "julia "
+
+[kotlin]
+symbol = "kotlin "
+
+[nodejs]
+symbol = "nodejs "
+
+[nim]
+symbol = "nim "
+
+[nix_shell]
+symbol = "nix_shell "
+
+[ocaml]
+symbol = "ocaml "
+
+[perl]
+symbol = "perl "
+
+[php]
+symbol = "php "
+
+[purescript]
+symbol = "purescript "
+
+[python]
+symbol = "🐍 "
+python_binary = "python3"
+format = '[ $symbol ($version) ]($style)'
+
+[ruby]
+symbol = "ruby "
+
+[rust]
+format = "rust: [🦀 $version](red bold)"
+
+[scala]
+symbol = "scala "
+
+[swift]
+symbol = "swift "

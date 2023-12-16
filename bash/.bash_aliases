@@ -2,19 +2,28 @@
 # .bash_aliases
 
 # some more ls aliases
-# check for exa and bat
 if hash podman 2> /dev/null; then
     # Custom Docker/Podman format command
     alias dpps='podman ps -a --format="$(tput bold)$(tput setaf 1)---> $(tput sgr0)ID: {{.ID}}\n   NAME: {{.Names}}\n  IMAGE: {{.Image}}\n  PORTS: {{.Ports}}\nCOMMAND: {{.Command}}\nCREATED: {{.CreatedAt}}\n STATUS: {{.Status}}\n\n"';
-else
-    export BAT_THEME="Solarized (light)"
+elif hash docker 2> /dev/null; then
+    alias dpps='docker ps -a --format="$(tput bold)$(tput setaf 1)---> $(tput sgr0)ID: {{.ID}}\n   NAME: {{.Names}}\n  IMAGE: {{.Image}}\n  PORTS: {{.Ports}}\nCOMMAND: {{.Command}}\nCREATED: {{.CreatedAt}}\n STATUS: {{.Status}}\n\n"';
+fi
+
+# check for eza
+if hash eza 2> /dev/null; then
     alias ls='exa'
     alias ld='exa -lh --all -D'
     alias ll='exa -lh --long --all --group-directories-first'
     alias li='exa -lh --long --icons --all --group-directories-first'
+fi
+
+# check for bat
+if hash bat 2> /dev/null; then
+    export BAT_THEME="Solarized (light)"
     alias cat='bat'
 fi
 
+# setup fzf
 if hash fzf 2> /dev/null; then
     # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#color-themes
     # junegunn/seoul256.vim (dark)
@@ -118,7 +127,7 @@ define() {
 } 
 
 # Fix bug in Silverblue/Kinoite
-alias update-fixer='sudo grub2-mkconfig';
+# alias update-fixer='sudo grub2-mkconfig';
 
 # toolbox, distrobox and podman functions
 tent() {

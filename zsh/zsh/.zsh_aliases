@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# https://github.com/Phantas0s/.dotfiles/blob/master/aliases/aliases
+
+###################
+##### ALIASES #####
+###################
+
+# Alias for Directory Stack
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+#### USER ALIASAS ####
+# https://www.thorsten-hans.com/5-types-of-zsh-aliases
+# some more ls aliases
+# check for exa vs ls
+if hash eza 2> /dev/null; then
+    alias ls='eza'
+    alias l='eza -lh --all --group-directories-first'
+    alias ll='eza -lh --all --all --group-directories-first'
+    alias la='eza -lh --all --all --group-directories-first'
+    # eza --icons
+else
+    alias ll='ls -lAh --color=auto'
+    alias la='ls -lhA --color=auto'
+    alias l='ls -CF --color=auto'
+fi
+
+# check for bat vs cat
+if hash bat 2> /dev/null; then
+    export BAT_THEME="Solarized (light)"
+    alias cat='bat'
+fi
+
+alias dd='dd status=progress'
+alias _='sudo'
+alias _i='sudo -i'
+alias please='sudo'
+alias fucking='sudo'
+
+# Colorize grep output (good for log files)
+alias grep='grep --color=auto' # Courtesy of c@m
+alias egrep='egrep --color=auto' # Courtesy of c@m
+alias fgrep='fgrep --color=auto' # Courtesy of c@m
+
+# confirm before overwriting something
+alias cp='cp -iv' # Courtesy of c@m
+alias mv='mv -iv' # Courtesy of Distrotube
+alias rm='rm -iv' # Courtesy of Distrotube
+
+# Run commands on host
+alias host_update='flatpak-spawn --host sudo -S rpm-ostree upgrade && sudo -k && flatpak-spawn --host flatpak update'
+alias host_status='flatpak-spawn --host sudo -S rpm-ostree status && sudo -k'
+alias tbup='sudo dnf update'
