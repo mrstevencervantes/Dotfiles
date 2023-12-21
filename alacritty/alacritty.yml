@@ -63,13 +63,13 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: full
+  decorations: none
 
   # Background opacity
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  #opacity: 1.0
+  opacity: .90
 
   # Startup Mode (changes require restart)
   #
@@ -80,7 +80,7 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode: Windowed
+  startup_mode: Maximized
 
   # Window title
   #title: Alacritty
@@ -132,7 +132,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    #family: monospace
+    family: NotoMono Nerd Font Mono
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -171,7 +171,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 14.0
+    size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -198,34 +198,35 @@ font:
 draw_bold_text_with_bright_colors: true
 
 ############---------------Custom Color Theme---------------############
-# https://github.com/rajasegar/alacritty-themes/blob/master/themes/vscode.dark.yml
+# XTerm's default colors
+
+# Default colors
 colors:
-  name: vscode (dark)
-  author: senpai-10
   primary:
-    background: "#1E1E1E"
-    foreground: "#D4D4D4"
-  cursor:
-    text: "#1d1f21"
-    cursor: "#cccccc"
+    background: '#000000'
+    foreground: '#ffffff'
+
+# Normal colors
   normal:
-    black: "#000000"
-    red: "#cd3131"
-    green: "#0dbc79"
-    yellow: "#e5e510"
-    blue: "#2472c8"
-    magenta: "#bc3fbc"
-    cyan: "#11a8cd"
-    white: "#e5e5e5"
+    black   : '#000000'
+    red     : '#cd0000'
+    green   : '#00cd00'
+    yellow  : '#cdcd00'
+    blue    : '#0000ee'
+    magenta : '#cd00cd'
+    cyan    : '#00cdcd'
+    white   : '#e5e5e5'
+
+# Bright colors
   bright:
-    black: "#666666"
-    red: "#f14c4c"
-    green: "#23d18b"
-    yellow: "#f5f543"
-    blue: "#3b8eea"
-    magenta: "#d670d6"
-    cyan: "#29b8db"
-    white: "#e5e5e5"
+    black   : '#7f7f7f'
+    red     : '#ff0000'
+    green   : '#00ff00'
+    yellow  : '#ffff00'
+    blue    : '#5c5cff'
+    magenta : '#ff00ff'
+    cyan    : '#00ffff'
+    white   : '#ffffff'
 
 ############---------------End Custom Color Theme---------------############
 
@@ -484,7 +485,7 @@ selection:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
 shell:
-  program: /usr/bin/zsh
+  program: /usr/bin/fish
 #  args:
 #    - --login
 
