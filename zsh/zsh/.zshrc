@@ -123,7 +123,7 @@ else
 
     function toolbox() {
     # Function to echo toolbox name
-       echo $(grep -oP "(?<=name=\")[^\";]+" /run/.containerenv)
+       grep -oP "(?<=name=\")[^\";]+" /run/.containerenv
     }
 
     function running_jobs() {
@@ -134,7 +134,6 @@ else
         fi
 
         echo '%!%f%B%F{white}:%f%b%F{green}%j%f'
-        #echo "$lette"
     }
 
     PROMPT='%F{green}['$(running_jobs)'%F{green}]%f%F{cyan}%n%f@%F{red}'$(toolbox)'%f %F{blue}%B>%b%f '

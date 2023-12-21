@@ -22,14 +22,6 @@ export PATH
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-#####USER ADDED#####
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 # HISTCONTROL=ignoreboth;
@@ -46,7 +38,6 @@ HISTFILESIZE=2000;
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize;
 shopt -s cdspell;
-
 # Use . and .. instead of cd
 # shopt -s autocd
 
@@ -57,7 +48,7 @@ shopt -s cdspell;
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    alias ll='ls -lAh --color=auto'
+    alias ll='ls -lAh --color=auto --group-directories-first'
     alias la='ls -lhA --color=auto'
     alias l='ls -CF --color=auto'
     alias dir='dir --color=auto'
@@ -76,6 +67,13 @@ if [ -x /usr/bin/dircolors ]; then
     export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
     export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
     export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+fi
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
 fi
 
 ############~Custom Bash Prompt Info~############
@@ -192,15 +190,19 @@ else
         local EXIT="$?"  # This needs to be the first line
         
         if hash podman 2> /dev/null; then
+            
+            local session_text=""
+            local lette=""
+            local vlu=""
 
             # NAMES=`podman ps -a | grep -wv NAMES`
-            NAMES=`podman ps -a --format="STATUS\tNAMES\n{{.Status}}\t{{.Names}}" | sed 1d`
+            local NAMES=$(podman ps -a --format="STATUS\tNAMES\n{{.Status}}\t{{.Names}}" | sed 1d)
             
             # Get names of running containers
             if [ -n "$NAMES" ]; then
-                stopped=$RED`echo "$NAMES" | awk '/Exited/ {print $(NF)}' | tr '\n' ' '`;
-                created=$LBLU`echo "$NAMES" | awk '/Created/ {print $(NF)}' | tr '\n' ' '`;
-                running=$LGRN`echo "$NAMES" | awk '/Up/ {print $(NF)}' | tr '\n' ' '`;
+                local stopped=$RED$(awk '/Exited/ {print $(NF)}' <<< "$NAMES" | tr '\n' ' ');
+                local created=$LBLU$(awk '/Created/ {print $(NF)}' <<< "$NAMES" | tr '\n' ' ');
+                local running=$LGRN$(awk '/Up/ {print $(NF)}' <<< "$NAMES" | tr '\n' ' ');
                 # created=$LBLU"$(podman ps -af status=created --format '{{.Names}}' | tr '\n' ' ')";
                 # stopped=$RED"$(podman ps -af status=exited --format '{{.Names}}' | tr '\n' ' ')";
                 # running=$LGRN"$(podman ps -af status=running --format '{{.Names}}' | tr '\n' ' ')";
@@ -215,7 +217,7 @@ else
         else        
             # Checks if inside toolbox or distrobox or ssh or nothing
             if [ -f "/run/.toolboxenv" ]; then
-                session_text=" $BPUR$(cat /run/.containerenv | grep -oP '(?<=name=\")[^\";]+') ";
+                session_text=" $BPUR$(grep -oP '(?<=name=\")[^\";]+' /run/.containerenv) ";
             elif [ -f "/run/.containerenv" ]; then
                 session_text=" $BYLW$(hostname -s) ";
             elif [ -n "$SSH_CLIENT" ]; then
