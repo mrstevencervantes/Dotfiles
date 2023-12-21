@@ -18,8 +18,5 @@ Custom kitty config
 ## Vim
 Custom nvim config
 
-## Devcontainer
-Custom python dev container
-
 ## Starship
 Custom starship config
