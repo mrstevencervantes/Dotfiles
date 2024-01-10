@@ -1,0 +1,12 @@
+layout {
+    cwd "/var/home/steven"
+    tab name="Main" focus=true hide_floating_panes=false {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        pane focus=true name="Main"
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+}

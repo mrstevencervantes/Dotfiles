@@ -1,0 +1,62 @@
+# Set the colour scheme
+colorscheme palenight 
+
+# Width of a tab
+set-option global tabstop 4
+
+# Indent with 4 spaces
+set-option global indentwidth 4
+
+# Always keep one line and three columns displayed around the cursor
+set-option global scrolloff 8,3
+
+# Display the status bar on top
+set-option global ui_options ncurses_status_on_top=true
+
+# Display line numbers
+# add-highlighter global/ number-lines -hlcursor
+add-highlighter global/ number-lines -hlcursor -relative -separator "  " -cursor-separator " |"
+
+# Highlight trailing whitespace
+add-highlighter global/ regex \h+$ 0:Error
+
+# Softwrap long lines
+add-highlighter global/ wrap -word -indent
+
+# unselect on <esc>
+map global normal <esc> ";,"
+
+##### USER MAPPINGS #####
+map -docstring "force quit without saving" global user q "<esc>:q!<ret>"
+
+# Clipboard management mappings
+map global normal Y '<a-|>xsel -ib<ret>'
+map global normal P '<a-!>xsel -ob<ret>'
+
+# Shortcut to quickly exit the editor
+define-command -docstring "save and quit" x "write-all; quit"
+
+# Show matching braces
+add-highlighter global/ show-matching
+
+# map Ctrl+d to <esc>
+map global insert <c-d> <esc>
+map global prompt <c-d> <esc>
+
+# Bind Ctrl+s to save
+map global normal <c-s> ':write<ret>:echo "File saved!"<ret>'
+map global insert <c-s> '<esc>:write<ret>:echo "File saved!"<ret>'
+
+# comment lines with Ctrl+/
+map global normal <c-/> ":comment-line<ret>"
+map global insert <c-/> "<esc>:comment-line<ret>"
+
+# Remove assistant
+set-option global ui_options terminal_assistant=cat # clippy, dilbert, cat, and none
+
+# Add byline module (x and X to select and unselect lines)
+source ~/.config/kak/plugins/byline.kak
+require-module "byline"
+
+# Add kakrc.lua
+# source ~/.config/kak/kakrc.lua
