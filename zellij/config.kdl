@@ -209,7 +209,7 @@ on_force_close "quit"
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 //
-default_shell "nu"
+default_shell "/usr/bin/nu"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //
@@ -270,8 +270,13 @@ pane_frames true
 
 // Choose the theme that is specified in the themes section.
 // Default: default
-//
-theme "solarized-dark"
+// AVAILABLE THEMES:
+// catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+// cyber-noir, blade-runner, retro-wave, dracula, everforest-dark, everforest-light
+// gruvbox-light, gruvbox-dark, kanagawa, menace, molokai-dark, dayfox, nightfox
+// terafox, nord, one-half-dark, pencil, solarized-dark, solarized-light
+// tokyo-night-dark, tokyo-night-light, tokyo-night-storm, tokyo-night
+theme "molokai-dark"
 
 // The name of the default layout to load on startup
 // Default: "default"
@@ -327,7 +332,7 @@ copy_on_select true
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
 //
-scrollback_editor "/usr/bin/nvim"
+scrollback_editor "/usr/bin/kak"
 
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
@@ -338,10 +343,9 @@ scrollback_editor "/usr/bin/nvim"
 
 // The folder in which Zellij will look for layouts
 //
-layout_dir "/var/home/steven/.config/zellij/layouts"
+layout_dir "/home/steven/.config/zellij/layouts"
 
 // The folder in which Zellij will look for themes
-//
 // theme_dir "/path/to/my/theme_dir"
 
 // Enable or disable the rendering of styled and colored underlines (undercurl).
@@ -349,3 +353,5 @@ layout_dir "/var/home/steven/.config/zellij/layouts"
 // Default: true
 //
 // styled_underlines false
+zellij_auto_attach true
+zellij_auto_exit true

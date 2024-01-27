@@ -766,3 +766,4 @@ source ~/.local/share/atuin/init.nu
 def ll [] { ls -a | sort-by type name -i }
 def lh [] { ls -la | sort-by type name -i }
 def cat [file] { bat $file }
+def zp [] { zellij action new-tab --layout main }

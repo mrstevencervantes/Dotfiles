@@ -19,9 +19,9 @@ layout {
             plugin location="zellij:status-bar"
         }
     }
-    strider_tab name="Main" cwd="/home/steven/" focus=true {
+    strider_tab name="Python" cwd="/home/steven/" focus=true {
         pane split_direction="vertical" {
-            pane name="Main"
+            pane name="Py-Main"
         }
     }
 }

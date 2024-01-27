@@ -1,0 +1,225 @@
+[env]
+TERM = "xterm-256color"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+# https://github.com/rajasegar/alacritty-themes/tree/master/themes
+# Colors (Pencil Dark)
+# [colors.bright]
+# black =   '#212121'
+# red =     '#fb007a'
+# green =   '#5fd7af'
+# yellow =  '#f3e430'
+# blue =    '#20bbfc'
+# magenta = '#6855de'
+# cyan =    '#4fb8cc'
+# white =   '#f1f1f1'
+
+# [colors.normal]
+# black =   '#212121'
+# red =     '#c30771'
+# green =   '#10a778'
+# yellow =  '#a89c14'
+# blue =    '#008ec4'
+# magenta = '#523c79'
+# cyan =    '#20a5ba'
+# white =   '#e0e0e0'
+
+# [colors.primary]
+# background = '#212121'
+# foreground = '#f1f1f1'
+
+# Colors (Omni)
+# [colors.primary]
+# background = '0x191622'
+# foreground = '0xe1e1e6'
+
+# [colors.normal]
+# black = '0x000000'
+# red = '0xff5555'
+# green = '0x50fa7b'
+# yellow = '0xeffa78'
+# blue = '0xbd93f9'
+# magenta = '0xff79c6'
+# cyan = '0x8d79ba'
+# white = '0xbfbfbf'
+
+# [colors.bright]
+# black = '0x4d4d4d'
+# red = '0xff6e67'
+# green = '0x5af78e'
+# yellow = '0xeaf08d'
+# blue = '0xcaa9fa'
+# magenta = '0xff92d0'
+# cyan = '0xaa91e3'
+# white = '0xe6e6e6'
+
+# [colors.dim]
+# black = '0x000000'
+# red = '0xa90000'
+# green = '0x049f2b'
+# yellow = '0xa3b106'
+# blue = '0x530aba'
+# magenta = '0xbb006b'
+# cyan = '0x433364'
+# white = '0x5f5f5f'
+
+# Colors (Monokai Charcoal)
+# [colors.primary]
+# background = '#000000'
+# foreground = '#FFFFFF'
+
+# [colors.normal]
+# black =   '#1a1a1a'
+# red =     '#f4005f'
+# green =   '#98e024'
+# yellow =  '#fa8419'
+# blue =    '#9d65ff'
+# magenta = '#f4005f'
+# cyan =    '#58d1eb'
+# white =   '#c4c5b5'
+
+# [colors.bright]
+# black =   '#625e4c'
+# red =     '#f4005f'
+# green =   '#98e024'
+# yellow =  '#e0d561'
+# blue =    '#9d65ff'
+# magenta = '#f4005f'
+# cyan =    '#58d1eb'
+# white =   '#f6f6ef'
+
+# (Github Dark Colorblind) Colors for Alacritty
+# [colors.primary]
+# background = '0x0d1117'
+# foreground = '0xc9d1d9'
+
+# [colors.normal]
+# black = '0x484f58'
+# red = '0xec8e2c'
+# green = '0x58a6ff'
+# yellow = '0xd29922'
+# blue = '0x58a6ff'
+# magenta = '0xbc8cff'
+# cyan = '0x39c5cf'
+# white = '0xb1bac4'
+
+# [colors.bright]
+# black = '0x6e7681'
+# red = '0xfdac54'
+# green = '0x79c0ff'
+# yellow = '0xe3b341'
+# blue = '0x79c0ff'
+# magenta = '0xbc8cff'
+# cyan = '0x39c5cf'
+# white = '0xb1bac4'
+
+# (Github Dark High Contrast) Colors for Alacritty
+# [colors.primary]
+# background = '0x0a0c10'
+# foreground = '0xf0f3f6'
+
+# [colors.normal]
+# black = '0x7a828e'
+# red = '0xff9492'
+# green = '0x26cd4d'
+# yellow = '0xf0b72f'
+# blue = '0x71b7ff'
+# magenta = '0xcb9eff'
+# cyan = '0x39c5cf'
+# white = '0xd9dee3'
+
+# [colors.bright]
+# black = '0x9ea7b3'
+# red = '0xffb1af'
+# green = '0x4ae168'
+# yellow = '0xf7c843'
+# blue = '0x91cbff'
+# magenta = '0xcb9eff'
+# cyan = '0x39c5cf'
+# white = '0xd9dee3'
+
+# Colors (Blood Moon)
+[colors.primary]
+background = '0x10100E'
+foreground = '0xC6C6C4'
+
+[colors.normal]
+black = '0x10100E'
+red = '0xC40233'
+green = '0x009F6B'
+yellow = '0xFFD700'
+blue = '0x0087BD'
+magenta = '0x9A4EAE'
+cyan = '0x20B2AA'
+white = '0xC6C6C4'
+
+[colors.bright]
+black = '0x696969'
+red = '0xFF2400'
+green = '0x03C03C'
+yellow = '0xFDFF00'
+blue = '0x007FFF'
+magenta = '0xFF1493'
+cyan = '0x00CCCC'
+white = '0xFFFAFA'
+
+[font]
+# normal                = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+# bold                  = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+# italic                = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+# bold_italic           = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
+# normal                = { family = "Lilex Nerd Font", style = "Regular" }
+# bold                  = { family = "Lilex Nerd Font", style = "Bold" }
+# italic                = { family = "Lilex Nerd Font", style = "Italic" }
+# bold_italic           = { family = "Lilex Nerd Font", style = "Bold Italic" }
+# normal                = { family = "FiraCode Nerd Font", style = "Regular" }
+# bold                  = { family = "FiraCode Nerd Font", style = "Bold" }
+# italic                = { family = "FiraCode Nerd Font", style = "Italic" }
+# bold_italic           = { family = "FiraCode Nerd Font", style = "Bold Italic" }
+size                  = 12.0
+# offset                = { x = 0, y = 0 }
+# glyph_offset          = { x = 0, y = 0 }
+#builtin_box_drawing   = true
+#[font]
+# size = 12.0
+# normal.family = "JetBrainsMono Nerd Font"
+# bold.family = "JetBrainsMono Nerd Font"
+# italic.family = "JetBrainsMono Nerd Font"
+# bold_italic.family = "JetBrainsMono Nerd Font"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Medium Italic"
+
+[font.normal]
+# # family = "Lilex Nerd Font"
+# # family = "FiraCode Nerd Font"
+family = "JetBrainsMono Nerd Font"
+# style = "Regular"
+
+[scrolling]
+history = 1000
+
+[selection]
+save_to_clipboard = true
+
+[shell]
+# program = "/usr/bin/nu"
+program = "/usr/bin/zellij"
+
+[window]
+decorations = "none"
+dynamic_padding = true
+dynamic_title = true
+opacity = 0.90
+startup_mode = "Maximized"

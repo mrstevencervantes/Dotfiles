@@ -1,5 +1,5 @@
 # Set the colour scheme
-colorscheme palenight 
+colorscheme ef-night
 
 # Width of a tab
 set-option global tabstop 4
@@ -14,7 +14,6 @@ set-option global scrolloff 8,3
 set-option global ui_options ncurses_status_on_top=true
 
 # Display line numbers
-# add-highlighter global/ number-lines -hlcursor
 add-highlighter global/ number-lines -hlcursor -relative -separator "  " -cursor-separator " |"
 
 # Highlight trailing whitespace
@@ -27,7 +26,18 @@ add-highlighter global/ wrap -word -indent
 map global normal <esc> ";,"
 
 ##### USER MAPPINGS #####
-map -docstring "force quit without saving" global user q "<esc>:q!<ret>"
+map -docstring "force quit without saving" global user q "<esc>: q!<ret>"
+map -docstring "save without quiting" global user s '<esc>: write<ret>: echo "File saved!"<ret>'
+map -docstring "save to new file without quiting" global user a '<esc>: write '
+map -docstring "force quit and save" global user f '<esc>: write<ret>: echo "File saved!"<ret>: q!<ret>'
+
+##### CUSTOM USER MAPPINGS #####
+declare-user-mode mod
+map global insert <c-space> '<esc>: enter-user-mode mod<ret>'
+map -docstring "force quit without saving" global mod q "<esc>: q!<ret>"
+map -docstring "save without quiting" global mod s '<esc>: write<ret>: echo "File saved!"<ret>'
+map -docstring "save to new file without quiting" global mod a '<esc>: write '
+map -docstring "force quit and save" global mod f '<esc>: write<ret>: echo "File saved!"<ret>: q!<ret>'
 
 # Clipboard management mappings
 map global normal Y '<a-|>xsel -ib<ret>'
@@ -44,12 +54,14 @@ map global insert <c-d> <esc>
 map global prompt <c-d> <esc>
 
 # Bind Ctrl+s to save
-map global normal <c-s> ':write<ret>:echo "File saved!"<ret>'
-map global insert <c-s> '<esc>:write<ret>:echo "File saved!"<ret>'
+map global normal <c-s> ': write<ret>: echo "File saved!"<ret>'
+map global insert <c-s> '<esc>: write<ret>: echo "File saved!"<ret>'
 
-# comment lines with Ctrl+/
-map global normal <c-/> ":comment-line<ret>"
-map global insert <c-/> "<esc>:comment-line<ret>"
+# comment lines
+map global normal '#' ': comment-line<ret>'
+map global insert <c-/> '<esc>:comment-line<ret>'
+# map global normal <a-#> ': comment-block<ret>'
+# map global normal '=' ': format<ret>'
 
 # Remove assistant
 set-option global ui_options terminal_assistant=cat # clippy, dilbert, cat, and none
@@ -58,5 +70,15 @@ set-option global ui_options terminal_assistant=cat # clippy, dilbert, cat, and 
 source ~/.config/kak/plugins/byline.kak
 require-module "byline"
 
-# Add kakrc.lua
-# source ~/.config/kak/kakrc.lua
+# Use tabs to auto-complete
+hook global InsertCompletionShow .* %{ map window insert <tab> <c-n>; map window insert <s-tab> <c-p> }
+hook global InsertCompletionHide .* %{ unmap window insert <tab> <c-n>; unmap window insert <s-tab> <c-p> }
+
+# Highlight TODO FIXME XXX NOTE HACK
+add-highlighter global/ regex ^(?:(#+)?(\s)?)\b(TODO|FIXME|XXX|NOTE|HACK)\b 3:default+rb
+
+# Experimental - highlight xml tags
+map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
+
+# Set client and session
+set-option global modelinefmt '%val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} %sh{whoami}@%sh{hostname}'

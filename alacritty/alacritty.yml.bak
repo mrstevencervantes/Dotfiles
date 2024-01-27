@@ -125,53 +125,53 @@ scrolling:
 # Font configuration
 font:
   # Normal (roman) font face
-  #normal:
+  normal:
     # Font family
     #
     # Default:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: NotoMono Nerd Font Mono
+    family: JetBrainsMono Nerd Font
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
 
   # Bold font face
-  #bold:
+  bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    family: JetBrainsMono Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    # style: Bold
 
   # Italic font face
-  #italic:
+  italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    family: JetBrainsMono Nerd Font
 
     # The `style` can be specified to pick a specific face.
     #style: Italic
 
   # Bold italic font face
-  #bold_italic:
+  bold_italic:
     # Font family
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    family: JetBrainsMono Nerd Font
 
     # The `style` can be specified to pick a specific face.
     #style: Bold Italic
 
   # Point size
-    size: 14.0
+    size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -484,10 +484,16 @@ selection:
 # Default:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
-shell:
-  program: /usr/bin/fish
+#shell:
+#  program: /usr/bin/nu
 #  args:
 #    - --login
+shell:
+  program: /usr/bin/zellij
+  # args:
+  #   - options
+  #   - --default-shell
+  #   - nu
 
 # Startup directory
 #
